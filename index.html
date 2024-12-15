@@ -95,19 +95,31 @@
     </div>
 
     <div class="footer">
-        <p>Made with ❤️ by YannXD</p>
+        <p>Made with ❤️ by Your Name</p>
     </div>
 
-    <!-- CDN untuk JavaScript Obfuscator (pastikan pustaka benar-benar ter-load dengan baik) -->
-    <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator@4.0.0/dist/index.min.js"></script>
+    <!-- Memuat pustaka JavaScript Obfuscator dengan event 'onload' -->
+    <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator@4.0.0/dist/index.min.js" onload="initializeObfuscator()"></script>
     
     <script>
+        // Fungsi ini memastikan pustaka obfuscator ter-load dengan benar
+        function initializeObfuscator() {
+            console.log("JavaScript Obfuscator sudah siap digunakan.");
+        }
+
+        // Fungsi untuk melakukan obfuscation kode JavaScript
         function obfuscateCode() {
             const inputCode = document.getElementById('inputCode').value;
             const outputElement = document.getElementById('outputCode');
             
             if (!inputCode.trim()) {
                 alert("Masukkan kode JavaScript terlebih dahulu!");
+                return;
+            }
+
+            // Pastikan pustaka obfuscator telah dimuat sebelum dipakai
+            if (typeof JavaScriptObfuscator === 'undefined') {
+                alert("Pustaka obfuscator gagal dimuat. Coba muat ulang halaman.");
                 return;
             }
 
@@ -123,6 +135,7 @@
             }
         }
 
+        // Fungsi obfuscation dengan opsi yang ditentukan
         function obfuscate(code) {
             const obfuscationResult = JavaScriptObfuscator.obfuscate(code, {
                 compact: true, // Mengompres kode untuk meminimalkan ukuran
