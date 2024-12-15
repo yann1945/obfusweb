@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Obfuscator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        /* Textarea */
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 12px;
+            font-size: 1em;
+            font-family: monospace, 'Courier New', Courier, sans-serif;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        /* Button Styling */
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Result Section */
+        .result-container {
+            margin-top: 30px;
+        }
+
+        .result-container h2 {
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .footer {
+            font-size: 0.8em;
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>JavaScript Obfuscator</h1>
+    <div class="container">
+        <textarea id="inputCode" placeholder="Masukkan kode JavaScript Anda di sini..."></textarea>
+        <button onclick="obfuscateCode()">Obfuscate Kode</button>
+
+        <div class="result-container">
+            <h2>Obfuscated Code:</h2>
+            <textarea id="outputCode" readonly placeholder="Hasil obfuscation akan muncul di sini..."></textarea>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Made with ❤️ by YannXD</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator@4.0.0/dist/index.min.js"></script>
+    
+    <script>
+        function obfuscateCode() {
+            const inputCode = document.getElementById('inputCode').value;
+            if (!inputCode) {
+                alert("Masukkan kode JavaScript terlebih dahulu!");
+                return;
+            }
+
+            // Menggunakan JavaScript Obfuscator untuk mengaburkan kode
+            const obfuscatedCode = obfuscate(inputCode);
+
+            // Menampilkan kode yang sudah di-obfuscate
+            document.getElementById('outputCode').value = obfuscatedCode;
+        }
+
+        function obfuscate(code) {
+            // Menggunakan opsi-opsi tambahan untuk obfuscation yang lebih kompleks
+            const obfuscationResult = JavaScriptObfuscator.obfuscate(code, {
+                compact: true,  // Mengompres kode
+                controlFlowFlattening: true,  // Menambahkan kontrol alur untuk keamanan ekstra
+                controlFlowFlatteningThreshold: 1,  // Tingkatkan kompleksitas kontrol alur
+                stringArray: true,  // Mengacak string literal
+                stringArrayEncoding: ['base64'],  // Encode string literal ke dalam base64
+                stringArrayThreshold: 0.75,  // Mengacak sebagian besar string literal
+                deadCodeInjection: true,  // Menyuntikkan kode mati untuk membingungkan analisis
+                simplify: true,  // Menyederhanakan kode
+                rotateStringArray: true,  // Mengubah urutan string literal
+            });
+
+            return obfuscationResult.getObfuscatedCode();
+        }
+    </script>
+
+</body>
+</html>
+
