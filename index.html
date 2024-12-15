@@ -98,16 +98,10 @@
         <p>Made with ❤️ by Your Name</p>
     </div>
 
-    <!-- Memuat pustaka JavaScript Obfuscator dengan event 'onload' -->
-    <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator@4.0.0/dist/index.min.js" onload="initializeObfuscator()"></script>
+    <!-- Memuat pustaka js-obfuscator dari CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/js-obfuscator"></script>
     
     <script>
-        // Fungsi ini memastikan pustaka obfuscator ter-load dengan benar
-        function initializeObfuscator() {
-            console.log("JavaScript Obfuscator sudah siap digunakan.");
-        }
-
-        // Fungsi untuk melakukan obfuscation kode JavaScript
         function obfuscateCode() {
             const inputCode = document.getElementById('inputCode').value;
             const outputElement = document.getElementById('outputCode');
@@ -117,15 +111,9 @@
                 return;
             }
 
-            // Pastikan pustaka obfuscator telah dimuat sebelum dipakai
-            if (typeof JavaScriptObfuscator === 'undefined') {
-                alert("Pustaka obfuscator gagal dimuat. Coba muat ulang halaman.");
-                return;
-            }
-
             try {
-                // Menggunakan JavaScript Obfuscator untuk mengaburkan kode
-                const obfuscatedCode = obfuscate(inputCode);
+                // Menggunakan pustaka js-obfuscator untuk obfuscate kode
+                const obfuscatedCode = jsObfuscator.obfuscate(inputCode);
 
                 // Menampilkan kode yang sudah di-obfuscate
                 outputElement.value = obfuscatedCode;
@@ -133,22 +121,6 @@
                 console.error("Terjadi kesalahan dalam proses obfuscation:", error);
                 alert("Terjadi kesalahan dalam proses obfuscation. Periksa konsol untuk detail.");
             }
-        }
-
-        // Fungsi obfuscation dengan opsi yang ditentukan
-        function obfuscate(code) {
-            const obfuscationResult = JavaScriptObfuscator.obfuscate(code, {
-                compact: true, // Mengompres kode untuk meminimalkan ukuran
-                controlFlowFlattening: false, // Menonaktifkan kontrol alur (untuk kesederhanaan)
-                stringArray: true, // Menambahkan string array untuk obfuscation string
-                stringArrayEncoding: ['base64'], // Mengencode string array ke base64
-                stringArrayThreshold: 0.75, // Persentase string literal yang diubah
-                deadCodeInjection: true, // Menyuntikkan kode mati untuk membingungkan analisis
-                simplify: true, // Menyederhanakan kode
-                rotateStringArray: true // Mengacak urutan string array
-            });
-
-            return obfuscationResult.getObfuscatedCode();
         }
     </script>
 
