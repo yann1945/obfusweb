@@ -6,7 +6,6 @@
     <title>JavaScript Obfuscator</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Styling yang sama dengan sebelumnya */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -18,14 +17,14 @@
             height: 100vh;
             flex-direction: column;
         }
-        
+
         h1 {
             font-size: 2.5em;
             color: #4CAF50;
             margin-bottom: 20px;
             text-align: center;
         }
-        
+
         .container {
             width: 80%;
             max-width: 900px;
@@ -99,29 +98,25 @@
         <p>Made with ❤️ by Your Name</p>
     </div>
 
-    <!-- Pastikan pustaka JavaScript Obfuscator ter-load dengan baik -->
+    <!-- CDN untuk JavaScript Obfuscator (pastikan pustaka benar-benar ter-load dengan baik) -->
     <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator@4.0.0/dist/index.min.js"></script>
     
     <script>
         function obfuscateCode() {
             const inputCode = document.getElementById('inputCode').value;
-            if (!inputCode) {
+            const outputElement = document.getElementById('outputCode');
+            
+            if (!inputCode.trim()) {
                 alert("Masukkan kode JavaScript terlebih dahulu!");
                 return;
             }
 
             try {
-                // Memastikan pustaka obfuscator ter-load
-                if (typeof JavaScriptObfuscator === 'undefined') {
-                    alert("Pustaka obfuscator gagal dimuat.");
-                    return;
-                }
-
                 // Menggunakan JavaScript Obfuscator untuk mengaburkan kode
                 const obfuscatedCode = obfuscate(inputCode);
 
                 // Menampilkan kode yang sudah di-obfuscate
-                document.getElementById('outputCode').value = obfuscatedCode;
+                outputElement.value = obfuscatedCode;
             } catch (error) {
                 console.error("Terjadi kesalahan dalam proses obfuscation:", error);
                 alert("Terjadi kesalahan dalam proses obfuscation. Periksa konsol untuk detail.");
@@ -129,17 +124,15 @@
         }
 
         function obfuscate(code) {
-            // Menggunakan opsi-opsi tambahan untuk obfuscation yang lebih kompleks
             const obfuscationResult = JavaScriptObfuscator.obfuscate(code, {
-                compact: true,  // Mengompres kode
-                controlFlowFlattening: true,  // Menambahkan kontrol alur untuk keamanan ekstra
-                controlFlowFlatteningThreshold: 1,  // Tingkatkan kompleksitas kontrol alur
-                stringArray: true,  // Mengacak string literal
-                stringArrayEncoding: ['base64'],  // Encode string literal ke dalam base64
-                stringArrayThreshold: 0.75,  // Mengacak sebagian besar string literal
-                deadCodeInjection: true,  // Menyuntikkan kode mati untuk membingungkan analisis
-                simplify: true,  // Menyederhanakan kode
-                rotateStringArray: true,  // Mengubah urutan string literal
+                compact: true, // Mengompres kode untuk meminimalkan ukuran
+                controlFlowFlattening: false, // Menonaktifkan kontrol alur (untuk kesederhanaan)
+                stringArray: true, // Menambahkan string array untuk obfuscation string
+                stringArrayEncoding: ['base64'], // Mengencode string array ke base64
+                stringArrayThreshold: 0.75, // Persentase string literal yang diubah
+                deadCodeInjection: true, // Menyuntikkan kode mati untuk membingungkan analisis
+                simplify: true, // Menyederhanakan kode
+                rotateStringArray: true // Mengacak urutan string array
             });
 
             return obfuscationResult.getObfuscatedCode();
